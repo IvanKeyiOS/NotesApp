@@ -117,7 +117,7 @@ final class NoteViewController: UIViewController, UITextViewDelegate {
                                           target: self,
                                           action: #selector(addImage))
         addImage.tintColor = .myRed
-<<<<<<< HEAD
+
         let selectCategory = UIBarButtonItem(barButtonSystemItem: .bookmarks,
                                           target: self,
                                           action: #selector(selectCategory))
@@ -127,8 +127,7 @@ final class NoteViewController: UIViewController, UITextViewDelegate {
     }
     
     @objc private func saveAction() {
-=======
->>>>>>> main
+
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save,
                                                             target: self,
