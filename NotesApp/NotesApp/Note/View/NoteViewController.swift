@@ -8,13 +8,13 @@
 import SnapKit
 import UIKit
 
-final class NoteViewController: UIViewController {
+final class NoteViewController: UIViewController, UITextViewDelegate {
     //MARK: - GUI Variables
     private let attachmentView: UIImageView = {
         let view = UIImageView()
         
         view.layer.cornerRadius = 10
-        view.image = UIImage(named: "mockImage")
+//        view.image = UIImage(named: "mockImage")
         view.layer.masksToBounds = true
         view.contentMode = .scaleAspectFill
         
@@ -31,11 +31,18 @@ final class NoteViewController: UIViewController {
         return view
     }()
     
+    //MARK: - Properties
+    var viewModel: NoteViewModelProtocol?
+   
+    
     //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        configure()
         setupUI()
+        
+        textView.delegate = self
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,12 +52,10 @@ final class NoteViewController: UIViewController {
     }
     
     //MARK: - Methods
-    
-    func set(note: Note) {
-        textView.text = note.title + " " + note.description
-        guard let imageData = note.image,
-              let image = UIImage(data: imageData) else { return }
-        attachmentView.image = image
+    private func configure() {
+        
+        textView.text = viewModel?.text
+        
     }
     
     //MARK: - Private methods
@@ -99,20 +104,20 @@ final class NoteViewController: UIViewController {
         textView.resignFirstResponder()
     }
     
-    private func setupBars() {
-        UIBarButtonItem.appearance().tintColor = .myRed
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save,
-                                                            target: self,
-                                                            action: #selector(saveAction))
-        let trashButton = UIBarButtonItem(barButtonSystemItem: .trash,
+   
+        
+    func setupBars() {
+        let spacing = UIBarButtonItem(systemItem: .flexibleSpace)
+        let deleteButton = UIBarButtonItem(barButtonSystemItem: .trash,
                                           target: self,
                                           action: #selector(deleteAction))
-        trashButton.tintColor = .myRed
-        let spacing = UIBarButtonItem(systemItem: .flexibleSpace)
-        let addImage = UIBarButtonItem(barButtonSystemItem: .add,
+        deleteButton .tintColor = .myRed
+        
+        let addImage = UIBarButtonItem(barButtonSystemItem: .camera,
                                           target: self,
                                           action: #selector(addImage))
         addImage.tintColor = .myRed
+<<<<<<< HEAD
         let selectCategory = UIBarButtonItem(barButtonSystemItem: .bookmarks,
                                           target: self,
                                           action: #selector(selectCategory))
@@ -122,11 +127,26 @@ final class NoteViewController: UIViewController {
     }
     
     @objc private func saveAction() {
+=======
+>>>>>>> main
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save,
+                                                            target: self,
+                                                            action: #selector(saveAction))
+        UIBarButtonItem.appearance().tintColor = .myRed
+        
+        setToolbarItems([deleteButton, spacing, addImage], animated: true)
+    }
+   
+    @objc private func saveAction() {
+        viewModel?.save(with: textView.text)
+        
+        navigationController?.popViewController(animated: true)
     }
 
     @objc private func deleteAction() {
-        
+        viewModel?.delete()
+        navigationController?.popViewController(animated: true)
     }
     
     @objc private func addImage() {

@@ -18,6 +18,9 @@ class NotesListViewController: UITableViewController {
         title = "Notes"
         setupTableView()
         setupToolBar()
+        
+        registerObserver()
+        reload()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,7 +38,14 @@ class NotesListViewController: UITableViewController {
         tableView.separatorStyle = .none
     }
     
-    private func setupToolBar() {
+    private func reload() {
+        viewModel?.reloadTable = { [weak self] in
+            self?.tableView.reloadData()
+            
+        }
+    }
+    
+    func setupToolBar() {
         let addButton = UIBarButtonItem(title: "Add note",
                                         style: .done,
                                         target: self,
@@ -46,10 +56,23 @@ class NotesListViewController: UITableViewController {
         setToolbarItems([spacing,addButton], animated: true)
         navigationController?.isToolbarHidden = false
     }
-    
+        
     @objc private func addAction() {
         let noteViewController = NoteViewController()
+        let viewModel = NoteViewModel(note: nil)
+        noteViewController.viewModel = viewModel
         navigationController?.pushViewController(noteViewController, animated: true)
+    }
+    
+    private func registerObserver() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateData),
+                                               name: NSNotification.Name("Update"),
+                                               object: nil)
+    }
+    
+    @objc private func updateData() {
+        viewModel?.getNotes()
     }
     
 }
@@ -58,6 +81,11 @@ class NotesListViewController: UITableViewController {
 extension NotesListViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         viewModel?.section.count ?? 0
+    }
+    
+    override func tableView(_ tableView: UITableView,
+                            titleForHeaderInSection section: Int) -> String? {
+        viewModel?.section[section].title
     }
  
     override func tableView(_ tableView: UITableView,
@@ -88,7 +116,9 @@ extension NotesListViewController {
         
         guard let note = viewModel?.section[indexPath.section].item[indexPath.row] as? Note else { return }
         let noteViewController = NoteViewController()
-        noteViewController.set(note: note)
+        let viewModel = NoteViewModel(note: note)
+//        noteViewController.set(note: note)
+        noteViewController.viewModel = viewModel
         navigationController?.pushViewController(noteViewController, animated: true)
     }
 }
