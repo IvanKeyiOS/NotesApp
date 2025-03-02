@@ -20,11 +20,7 @@ class NotesListViewController: UITableViewController {
         setupToolBar()
         
         registerObserver()
-        
-        viewModel?.reloadTable = { [weak self] in
-            self?.tableView.reloadData()
-            
-        }
+        reload()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,7 +38,14 @@ class NotesListViewController: UITableViewController {
         tableView.separatorStyle = .none
     }
     
-    private func setupToolBar() {
+    private func reload() {
+        viewModel?.reloadTable = { [weak self] in
+            self?.tableView.reloadData()
+            
+        }
+    }
+    
+    func setupToolBar() {
         let addButton = UIBarButtonItem(title: "Add note",
                                         style: .done,
                                         target: self,
@@ -53,7 +56,7 @@ class NotesListViewController: UITableViewController {
         setToolbarItems([spacing,addButton], animated: true)
         navigationController?.isToolbarHidden = false
     }
-    
+        
     @objc private func addAction() {
         let noteViewController = NoteViewController()
         let viewModel = NoteViewModel(note: nil)

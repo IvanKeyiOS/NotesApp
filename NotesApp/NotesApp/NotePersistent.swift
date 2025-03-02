@@ -19,7 +19,7 @@ final class NotePersistent {
             guard let description = NSEntityDescription.entity(forEntityName: "NoteEntity",
                                                                in: context) else { return }
             entity = NoteEntity(entity: description,
-                                    insertInto: context)
+                                insertInto: context)
         }
         entity?.title = note.title
         entity?.textDescription = note.description

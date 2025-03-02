@@ -35,8 +35,9 @@ final class NoteViewModel: NoteViewModelProtocol {
                         description: description,
                         date: date,
                         imageURL: nil)
+       
+            NotePersistent.save(note)
         
-        NotePersistent.save(note)
     }
     
     func delete() {
