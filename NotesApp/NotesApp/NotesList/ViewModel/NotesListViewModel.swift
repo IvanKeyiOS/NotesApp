@@ -54,6 +54,17 @@ final class NotesListViewModel: NotesListViewModelProtocol {
         let section = TableViewSection(title: "13 Feb 2025",
                                        item: [
                                         Note(title: "First note",
+                                             description: "First note description",
+                                             data: Data(),
+                                             imageURL: nil,
+                                             image: nil,
+                                             category: nil),
+                                        Note(title: "First note",
+                                             description: "First note description",
+                                             data: Data(),
+                                             imageURL: nil,
+                                             image: nil,
+                                             category: nil)
                                                    description: "First note description",
                                                    date: Date(),
                                                    imageURL: nil),

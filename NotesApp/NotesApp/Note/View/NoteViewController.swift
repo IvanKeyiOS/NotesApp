@@ -117,6 +117,16 @@ final class NoteViewController: UIViewController, UITextViewDelegate {
                                           target: self,
                                           action: #selector(addImage))
         addImage.tintColor = .myRed
+
+        let selectCategory = UIBarButtonItem(barButtonSystemItem: .bookmarks,
+                                          target: self,
+                                          action: #selector(selectCategory))
+        selectCategory.tintColor = .myRed
+        
+        setToolbarItems([deleteButton, spacing, addImage, spacing, selectCategory], animated: true)
+    
+    
+    
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save,
                                                             target: self,
@@ -138,6 +148,10 @@ final class NoteViewController: UIViewController, UITextViewDelegate {
     }
     
     @objc private func addImage() {
+        
+    }
+    
+    @objc private func selectCategory() {
         
     }
 }
