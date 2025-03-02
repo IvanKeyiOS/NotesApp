@@ -9,7 +9,6 @@ import UIKit
 
 struct Note: TableViewItemProtocol {
     let title: String
-<<<<<<< HEAD
     let description: String
     let data: Data
     let imageURL: String?
@@ -37,10 +36,9 @@ enum Category: String {
         case .healthy : return UIColor.systemRed
         }
     }
-=======
+
     let description: String?
     let date: Date
     let imageURL: URL?
     let image: Data? = nil
->>>>>>> main
 }

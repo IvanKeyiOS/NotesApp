@@ -54,7 +54,6 @@ final class NotesListViewModel: NotesListViewModelProtocol {
         let section = TableViewSection(title: "13 Feb 2025",
                                        item: [
                                         Note(title: "First note",
-<<<<<<< HEAD
                                              description: "First note description",
                                              data: Data(),
                                              imageURL: nil,
@@ -66,7 +65,6 @@ final class NotesListViewModel: NotesListViewModelProtocol {
                                              imageURL: nil,
                                              image: nil,
                                              category: nil)
-=======
                                                    description: "First note description",
                                                    date: Date(),
                                                    imageURL: nil),
@@ -74,7 +72,6 @@ final class NotesListViewModel: NotesListViewModelProtocol {
                                                    description: "First note description",
                                                    date: Date(),
                                                    imageURL: nil)
->>>>>>> main
                                        ])
         self.section = [section]
     }

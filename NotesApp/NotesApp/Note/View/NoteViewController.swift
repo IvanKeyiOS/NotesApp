@@ -123,11 +123,10 @@ final class NoteViewController: UIViewController, UITextViewDelegate {
                                           action: #selector(selectCategory))
         selectCategory.tintColor = .myRed
         
-        setToolbarItems([trashButton, spacing, addImage, spacing, selectCategory], animated: true)
-    }
+        setToolbarItems([deleteButton, spacing, addImage, spacing, selectCategory], animated: true)
     
-    @objc private func saveAction() {
-
+    
+    
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save,
                                                             target: self,

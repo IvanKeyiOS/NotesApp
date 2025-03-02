@@ -1,5 +1,5 @@
 //
-//  ImageNoteTAbleViewCell.swift
+//  ImageNoteTableViewCell.swift
 //  NotesApp
 //
 //  Created by Иван Курганский on 12/02/2025.
