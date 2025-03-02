@@ -124,7 +124,24 @@ final class NoteViewController: UIViewController, UITextViewDelegate {
         UIBarButtonItem.appearance().tintColor = .myRed
         
         setToolbarItems([deleteButton, spacing, addImage], animated: true)
+        //MARK: - Hide button
+        navigationItem.rightBarButtonItem?.isHidden = true
+        let content = ""
+        if viewModel?.text == content {
+            deleteButton.isHidden = true
+            
+        }
     }
+    func textViewDidChange(_ textView: UITextView) {
+        updateButton()
+    }
+    
+    @objc func updateButton() {
+        if let button = navigationItem.rightBarButtonItem {
+            button.isHidden = false
+        }
+    }
+
    
     @objc private func saveAction() {
         viewModel?.save(with: textView.text)
@@ -141,3 +158,6 @@ final class NoteViewController: UIViewController, UITextViewDelegate {
         
     }
 }
+
+
+
